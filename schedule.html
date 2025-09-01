@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>个人动态学习仪表盘 (v-final)</title>
+<title>个人动态学习仪表盘 (v-final-fix)</title>
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
@@ -74,7 +74,7 @@
                     <tr><th>时间段</th><th>学习内容 (做什么)</th><th>原理解释 (为什么这么安排)</th></tr>
                 </thead>
                 <tbody id="schedule-body">
-                    <tr id="task-0730" class="task-warmup"><td data-label="时间段"><strong>7:30 - 8:30</strong></td><td data-label="学习内容 (做什么)"><strong>沉浸式听力</strong><br>准备早餐、吃饭、晨间整理时，播放 <strong>`Feishu Minutes`</strong> 或 <strong>`Teacher Han's lessons`</strong> 的音频。</td><td data-label="原理解释"><strong>低强度预热</strong><br>让大脑“频道”调至英语，为专注学习做铺垫。</td></tr>
+                     <tr id="task-0730" class="task-warmup"><td data-label="时间段"><strong>7:30 - 8:30</strong></td><td data-label="学习内容 (做什么)"><strong>沉浸式听力</strong><br>准备早餐、吃饭、晨间整理时，播放 <strong>`Feishu Minutes`</strong> 或 <strong>`Teacher Han's lessons`</strong> 的音频。</td><td data-label="原理解释"><strong>低强度预热</strong><br>让大脑“频道”调至英语，为专注学习做铺垫。</td></tr>
                     <tr id="task-0830" class="task-review"><td data-label="时间段"><strong>8:30 - 9:00</strong></td><td data-label="学习内容 (做什么)"><strong>昨日复盘</strong><br>打开 <strong>`DIDA review words`</strong>，回顾并消化<strong>昨天</strong>记录下的所有知识点。</td><td data-label="原理解释"><strong>激活短期记忆</strong><br>巩固旧知识，为学习新知识打下基础。</td></tr>
                     <tr id="task-0900" class="task-input"><td data-label="时间段"><strong>9:00 - 10:15</strong></td><td data-label="学习内容 (做什么)"><strong>核心输入：`Teacher Han's lessons`</strong><br>集中精力学习一节<strong>新课</strong>，并在 <strong>`DIDA`</strong> 中记下笔记。</td><td data-label="原理解释"><strong>精力巅峰期攻克新知</strong><br>在思维最清晰的时段学习系统性知识。</td></tr>
                     <tr id="task-1015" class="task-break"><td data-label="时间段"><strong>10:15 - 10:30</strong></td><td data-label="内容"><strong>短暂休息</strong></td><td data-label="说明">离开书桌，远眺，喝水，让大脑“充电”。</td></tr>
@@ -122,8 +122,8 @@
 <audio id="notification-sound" src="https://www.soundjay.com/buttons/sounds/button-16.mp3" preload="auto"></audio>
 
 <script>
-    // 关键改动：将所有逻辑包裹在 window.onload 中
-    window.onload = function() {
+    // 使用 DOMContentLoaded 依然是最佳实践，确保DOM树可用
+    document.addEventListener('DOMContentLoaded', function() {
         const notificationSound = document.getElementById('notification-sound');
         const notificationIcon = 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6a/Feather-icon-book.svg/120px-Feather-icon-book.svg.png';
 
@@ -147,8 +147,32 @@
             }
         }
 
+        // --- 滚动逻辑函数 ---
+        function performInitialScroll() {
+            if (!hasScrolled) {
+                const targetRow = document.querySelector('.highlight');
+                if (targetRow) {
+                    targetRow.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    hasScrolled = true;
+                }
+            }
+        }
+
         const ctx = document.getElementById('energyChart').getContext('2d');
-        const energyChart = new Chart(ctx, { type: 'line', data: { labels: [7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23], datasets: [{ label: '精力水平', data: [30, 60, 95, 90, 80, 65, 50, 40, 60, 75, 70, 60, 55, 50, 45, 30, 20], fill: true, borderColor: 'rgba(75, 192, 192, 1)', backgroundColor: 'rgba(75, 192, 192, 0.2)', tension: 0.4 }] }, options: { responsive: true, scales: { y: { beginAtZero: true, max: 100, title: { display: true, text: '精力水平 (0-100)' } }, x: { type: 'linear', min: 7, max: 23, title: { display: true, text: '时间 (24小时制)' } } }, plugins: { legend: { display: false }, annotation: { annotations: { currentTimeLine: { type: 'line', scaleID: 'x', value: 7, borderColor: 'red', borderWidth: 2, label: { enabled: true, content: '当前时间', position: 'start' } } } } } } });
+        const energyChart = new Chart(ctx, { 
+            type: 'line', 
+            data: { labels: [7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23], datasets: [{ label: '精力水平', data: [30, 60, 95, 90, 80, 65, 50, 40, 60, 75, 70, 60, 55, 50, 45, 30, 20], fill: true, borderColor: 'rgba(75, 192, 192, 1)', backgroundColor: 'rgba(75, 192, 192, 0.2)', tension: 0.4 }] }, 
+            options: { 
+                scales: { y: { beginAtZero: true, max: 100, title: { display: true, text: '精力水平 (0-100)' } }, x: { type: 'linear', min: 7, max: 23, title: { display: true, text: '时间 (24小时制)' } } }, 
+                plugins: { legend: { display: false }, annotation: { annotations: { currentTimeLine: { type: 'line', scaleID: 'x', value: 7, borderColor: 'red', borderWidth: 2, label: { enabled: true, content: '当前时间', position: 'start' } } } } },
+                // --- 关键改动：在这里添加 onComplete 回调 ---
+                animation: {
+                    onComplete: () => {
+                        performInitialScroll();
+                    }
+                }
+            } 
+        });
         
         function masterUpdate() {
             const now = new Date(); const currentTime = now.getHours() + now.getMinutes() / 60; const formattedTime = now.toLocaleDateString('zh-CN', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit' }); let currentTask = null;
@@ -160,16 +184,7 @@
             const statusBar = document.getElementById('status-bar');
             if (currentTask) {
                 const targetRow = document.getElementById(currentTask.id);
-                if (targetRow) {
-                    targetRow.classList.add('highlight');
-                    if (!hasScrolled) { 
-                        // 即使在onload后，也加一个极短的延时，确保万无一失
-                        setTimeout(() => { 
-                            targetRow.scrollIntoView({ behavior: 'smooth', block: 'center' }); 
-                            hasScrolled = true; 
-                        }, 50); 
-                    }
-                }
+                if (targetRow) { targetRow.classList.add('highlight'); } // 高亮逻辑依然在这里
                 if (targetRow && targetRow.classList.contains('task-break')) { statusBar.innerHTML = `<strong>${formattedTime}</strong><br>当前是：<strong>${currentTask.name}</strong>，请好好放松！`; } else { statusBar.innerHTML = `<strong>${formattedTime}</strong><br>当前任务：<strong>${currentTask.name}</strong>，请保持专注！`; }
             } else {
                 let nextTask = schedule.find(task => task.start > currentTime);
@@ -180,9 +195,9 @@
         }
 
         setupNotifications();
-        masterUpdate();
-        setInterval(masterUpdate, 1000);
-    };
+        masterUpdate(); // 首次执行，高亮当前行
+        setInterval(masterUpdate, 1000); // 每秒更新
+    });
 </script>
 </body>
 </html>
