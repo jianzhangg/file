@@ -57,6 +57,11 @@
     tbody tr:last-child {
         border-bottom: none;
     }
+    /* 休息时间行的特殊样式 */
+    tbody tr.break-time {
+        background-color: #f8f9fa;
+        color: #6c757d;
+    }
     td {
         font-size: 16px;
         line-height: 1.6;
@@ -123,6 +128,13 @@
         .highlight {
             border-left: 5px solid #F59E0B; /* 高亮样式在手机上依然生效 */
         }
+        /* 手机端休息时间卡的样式 */
+        tr.break-time {
+            background-color: #f8f9fa;
+        }
+        tr.break-time td:before {
+            color: #6c757d;
+        }
     }
 </style>
 </head>
@@ -143,57 +155,77 @@
             <tr id="task-0730">
                 <td data-label="时间段"><strong>7:30 - 8:30</strong></td>
                 <td data-label="学习内容 (做什么)"><strong>沉浸式听力</strong><br>准备早餐、吃饭、晨间整理时，播放 <strong>`Feishu Minutes`</strong> 里的音频或 <strong>`Teacher Han's lessons`</strong> 中已学过的课程音频。</td>
-                <td data-label="原理解释 (为什么这么安排)"><strong>低强度预热</strong><br>完全符合你在这些时段“无法做高强度学习”的需求。通过聆听熟悉或半熟悉的材料，可以在不消耗过多精力的情况下，将大脑“频道”调至英语，为接下来的专注学习做铺垫。</td>
+                <td data-label="原理解释 (为什么这么安排)"><strong>低强度预热</strong><br>在不消耗过多精力的情况下，将大脑“频道”调至英语，为专注学习做铺垫。</td>
             </tr>
             <tr id="task-0830">
                 <td data-label="时间段"><strong>8:30 - 9:00</strong></td>
-                <td data-label="学习内容 (做什么)"><strong>昨日复盘</strong><br>打开 <strong>`DIDA review words`</strong>，回顾并消化<strong>昨天</strong>记录下的所有知识点（单词、句子、用法）。</td>
-                <td data-label="原理解释 (为什么这么安排)"><strong>激活短期记忆</strong><br>学习新知识前，先巩固昨天刚形成的记忆，这是最高效的衔接方式。这能确保昨天的学习成果被牢牢锁住，并为今天的新内容腾出清晰的“认知空间”。</td>
+                <td data-label="学习内容 (做什么)"><strong>昨日复盘</strong><br>打开 <strong>`DIDA review words`</strong>，回顾并消化<strong>昨天</strong>记录下的所有知识点。</td>
+                <td data-label="原理解释 (为什么这么安排)"><strong>激活短期记忆</strong><br>巩固旧知识，为学习新知识打下基础，提高吸收率。</td>
             </tr>
-             <tr id="task-0900">
+            <tr id="task-0900">
                 <td data-label="时间段"><strong>9:00 - 10:15</strong></td>
                 <td data-label="学习内容 (做什么)"><strong>核心输入：`Teacher Han's lessons`</strong><br>集中精力学习一节<strong>新课</strong>。仔细看视频，理解核心知识点，并在 <strong>`DIDA`</strong> 中记下最重要的笔记。</td>
-                <td data-label="原理解释 (为什么这么安排)"><strong>精力巅峰期攻克新知</strong><br>这是你一天中思维最清晰、吸收能力最强的时段，必须留给最重要、最系统的新知识输入。韩老师的课程是你的体系核心，放在这里效果最佳。</td>
+                <td data-label="原理解释 (为什么这么安排)"><strong>精力巅峰期攻克新知</strong><br>在思维最清晰的时段学习系统性知识，效果最好。</td>
+            </tr>
+            <tr id="task-1015" class="break-time">
+                <td data-label="时间段"><strong>10:15 - 10:30</strong></td>
+                <td data-label="内容"><strong>短暂休息</strong></td>
+                <td data-label="说明">离开书桌，远眺，喝水，让大脑“充电”。</td>
             </tr>
             <tr id="task-1030">
                 <td data-label="时间段"><strong>10:30 - 11:30</strong></td>
-                <td data-label="学习内容 (做什么)"><strong>专项练习：`Feishu Minutes Shadowing`</strong><br>对飞书里的材料进行“刻意练习”。<strong>一句一句地跟读</strong>，录下自己的声音与原音对比，反复打磨，直到满意为止。</td>
-                <td data-label="原理解释 (为什么这么安排)"><strong>将输入转化为肌肉记忆</strong><br>Shadowing 是一种高强度的口语输出练习。放在上午精力依然充沛的时段，可以保证你有足够的耐心和专注力去抠发音、语调的细节，将“听懂”转化为“会说”。</td>
+                <td data-label="学习内容 (做什么)"><strong>专项练习：`Feishu Minutes Shadowing`</strong><br>对飞书里的材料进行“刻意练习”。<strong>一句一句地跟读</strong>，录音对比，反复打磨。</td>
+                <td data-label="原理解释 (为什么这么安排)"><strong>将输入转化为肌肉记忆</strong><br>高强度的口语输出练习，将“听懂”转化为“会说”。</td>
             </tr>
             <tr id="task-1130">
                 <td data-label="时间段"><strong>11:30 - 12:15</strong></td>
-                <td data-label="学习内容 (做什么)"><strong>即时应用：`TalkAI talk with AI`</strong><br>围绕<strong>上午新学课程</strong>和<strong>Shadowing材料</strong>的主题，与AI外教进行对话。主动尝试使用刚学到的单词和句型。</td>
-                <td data-label="原理解释 (为什么这么安排)"><strong>学以致用的第一步</strong><br>这是连接“学”与“用”的关键桥梁。AI对话提供了一个安全的、可无限次试错的环境，让你能立刻把新知识投入实践，这是最快的内化方式。</td>
+                <td data-label="学习内容 (做什么)"><strong>即时应用：`TalkAI talk with AI`</strong><br>围绕<strong>上午新学课程</strong>和<strong>Shadowing材料</strong>的主题，与AI外教进行对话。</td>
+                <td data-label="原理解释 (为什么这么安排)"><strong>学以致用的第一步</strong><br>在安全的试错环境中立即实践新知识，是最高效的内化方式。</td>
+            </tr>
+            <tr id="task-1215" class="break-time">
+                <td data-label="时间段"><strong>12:15 - 13:30</strong></td>
+                <td data-label="内容"><strong>午餐 & 完全休息</strong></td>
+                <td data-label="说明">好好吃饭，可以午睡。让大脑彻底放空，恢复精力。</td>
             </tr>
             <tr id="task-1330">
                 <td data-label="时间段"><strong>13:30 - 14:30</strong></td>
-                <td data-label="学习内容 (做什么)"><strong>词汇专项：`TalkAI memory words`</strong><br>系统地背单词。完成App里的学习和测试任务。这里主要是记忆<strong>非今天新学</strong>的、由App规划的词汇。</td>
-                <td data-label="原理解释 (为什么这么安排)"><strong>分解学习任务</strong><br>将纯粹的单词记忆任务放在下午，因为它相对独立，不像学习课程那样需要高度连贯的逻辑思维。这样可以避免在精力高峰期做机械记忆，优化精力分配。</td>
+                <td data-label="学习内容 (做什么)"><strong>词汇专项：`TalkAI memory words`</strong><br>系统地背单词。完成App里的学习和测试任务。</td>
+                <td data-label="原理解释 (为什么这么安排)"><strong>分解学习任务</strong><br>将相对独立的单词记忆任务放在下午，优化精力分配。</td>
             </tr>
             <tr id="task-1430">
                 <td data-label="时间段"><strong>14:30 - 15:30</strong></td>
-                <td data-label="学习内容 (做什么)"><strong>异步交流：`Tandem` 文字聊天</strong><br>在 Tandem 上与几个语伴进行<strong>文字交流</strong>。可以聊聊生活日常，也可以就一个话题深入。同时，<strong>预约好晚上的语音通话</strong>。</td>
-                <td data-label="原理解释 (为什么这么安排)"><strong>低压输出与社交预热</strong><br>文字聊天给你更多思考和查阅的时间，是巩固词汇和句型的绝佳方式。同时，通过文字互动建立友谊，为晚上更高质量的语音通话做好铺垫。</td>
+                <td data-label="学习内容 (做什么)"><strong>异步交流：`Tandem` 文字聊天</strong><br>与语伴进行<strong>文字交流</strong>，并<strong>预约好晚上的语音通话</strong>。</td>
+                <td data-label="原理解释 (为什么这么安排)"><strong>低压输出与社交预热</strong><br>文字聊天有更多思考时间，巩固词汇句型，为语音通话铺垫。</td>
+            </tr>
+            <tr id="task-1530" class="break-time">
+                <td data-label="时间段"><strong>15:30 - 15:45</strong></td>
+                <td data-label="内容"><strong>茶歇</strong></td>
+                <td data-label="说明">短暂休息，切换学习模式。</td>
             </tr>
             <tr id="task-1545">
                 <td data-label="时间段"><strong>15:45 - 17:00</strong></td>
-                <td data-label="学习内容 (做什么)"><strong>复习与准备</strong><br>1. 打开 <strong>`DIDA`</strong>，复习<strong>一周前</strong>的知识点（间隔重复）。<br>2. 准备<strong>2-3个</strong>晚上想和 Tandem 语伴聊的话题，思考一些可能会用到的词汇和表达。</td>
-                <td data-label="原理解释 (为什么这么安排)"><strong>科学复习 & 有备而战</strong><br>间隔重复是对抗遗忘最科学的武器。复习旧知识能激活长期记忆。提前准备话题能让你的实战中更自信、更有话可说，极大提升交流质量。</td>
+                <td data-label="学习内容 (做什么)"><strong>复习与准备</strong><br>1. 打开 <strong>`DIDA`</strong>，复习<strong>一周前</strong>的知识点。<br>2. 准备晚上Tandem语伴聊天的话题。</td>
+                <td data-label="原理解释 (为什么这么安排)"><strong>科学复习 & 有备而战</strong><br>间隔重复对抗遗忘。提前准备能让你在实战中更自信。</td>
+            </tr>
+            <tr id="task-1700" class="break-time">
+                <td data-label="时间段"><strong>17:00 - 21:30</strong></td>
+                <td data-label="内容"><strong>晚餐、运动、洗澡</strong></td>
+                <td data-label="说明">身体和大脑的恢复期。期间可泛听英语音频保持语境。</td>
             </tr>
             <tr id="task-2130">
                 <td data-label="时间段"><strong>21:30 - 22:15</strong></td>
                 <td data-label="学习内容 (做什么)"><strong>核心输出：`Tandem talk with foreigners`</strong><br>与预约好的语伴进行<strong>45分钟</strong>的语音或视频通话。</td>
-                <td data-label="原理解释 (为什么这么安排)"><strong>终极实战场</strong><br>这是检验你一天学习成果的“阅兵式”。真实的、即时的交流会最大程度地调动你所有的知识储备，是提升流利度和应变能力的“加速器”。</td>
+                <td data-label="原理解释 (为什么这么安排)"><strong>终极实战场</strong><br>检验一天学习成果，将知识转化为技能的加速器。</td>
             </tr>
             <tr id="task-2215">
                 <td data-label="时间段"><strong>22:15 - 22:45</strong></td>
-                <td data-label="学习内容 (做什么)"><strong>复盘与捕获 (黄金30分钟)</strong><br>通话结束后，立刻！马上！打开 <strong>`DIDA`</strong> 和 <strong>`TalkAI memory words`</strong>，记录下：<br>- 交流中卡壳的单词/表达。<br>- 对方说出的地道用法。<br>- 自己犯的语法错误。</td>
-                <td data-label="原理解释 (为什么这么安排)"><strong>闭合学习循环</strong><br>这是<strong>一天中投资回报率最高的环节</strong>。趁记忆还滚烫，迅速复盘，将错误和新知“捕获”到你的复习系统中。这样，每一次交流的价值都被榨干，你的错误才会成为进步的阶梯。</td>
+                <td data-label="学习内容 (做什么)"><strong>复盘与捕获 (黄金30分钟)</strong><br>立刻记录通话中的生词、错误和地道用法到<strong>`DIDA`</strong>和<strong>`TalkAI`</strong>。</td>
+                <td data-label="原理解释 (为什么这么安排)"><strong>闭合学习循环</strong><br>趁热打铁，将错误转化为进步的阶梯，实现最高效的复盘。</td>
             </tr>
              <tr id="task-2245">
                 <td data-label="时间段"><strong>22:45 - 23:15</strong></td>
                 <td data-label="学习内容 (做什么)"><strong>睡前巩固</strong><br>快速浏览一遍今晚记下的新笔记，然后上床休息。</td>
-                <td data-label="原理解释 (为什么这么安排)"><strong>利用睡眠魔法</strong><br>睡前再次加深对新知识的印象，大脑会在睡眠中自动整理和巩固它们，实现“躺着也能进步”的神奇效果。</td>
+                <td data-label="原理解释 (为什么这么安排)"><strong>利用睡眠魔法</strong><br>大脑会在睡眠中自动整理和巩固睡前信息，实现“躺着进步”。</td>
             </tr>
         </tbody>
     </table>
@@ -201,17 +233,22 @@
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    let hasScrolled = false; // 新增一个标记，确保自动滚动只执行一次
+    let hasScrolled = false; // 确保自动滚动只执行一次
 
+    // 在 schedule 数组中也加入了休息时间段，以便高亮和状态栏显示
     const schedule = [
         { id: 'task-0730', start: 7.5, end: 8.5, name: '沉浸式听力' },
         { id: 'task-0830', start: 8.5, end: 9.0, name: '昨日复盘' },
         { id: 'task-0900', start: 9.0, end: 10.25, name: '核心输入：Teacher Han\'s lessons' },
+        { id: 'task-1015', start: 10.25, end: 10.5, name: '短暂休息' },
         { id: 'task-1030', start: 10.5, end: 11.5, name: '专项练习：Feishu Minutes Shadowing' },
         { id: 'task-1130', start: 11.5, end: 12.25, name: '即时应用：TalkAI talk with AI' },
+        { id: 'task-1215', start: 12.25, end: 13.5, name: '午餐 & 完全休息' },
         { id: 'task-1330', start: 13.5, end: 14.5, name: '词汇专项：TalkAI memory words' },
         { id: 'task-1430', start: 14.5, end: 15.5, name: '异步交流：Tandem 文字聊天' },
+        { id: 'task-1530', start: 15.5, end: 15.75, name: '茶歇' },
         { id: 'task-1545', start: 15.75, end: 17.0, name: '复习与准备' },
+        { id: 'task-1700', start: 17.0, end: 21.5, name: '晚餐、运动、洗澡' },
         { id: 'task-2130', start: 21.5, end: 22.25, name: '核心输出：Tandem talk with foreigners' },
         { id: 'task-2215', start: 22.25, end: 22.75, name: '复盘与捕获 (黄金30分钟)' },
         { id: 'task-2245', start: 22.75, end: 23.25, name: '睡前巩固' }
@@ -243,29 +280,34 @@ document.addEventListener('DOMContentLoaded', function() {
             if (targetRow) {
                 targetRow.classList.add('highlight');
 
-                // --- 新增的自动滚动逻辑 ---
                 if (!hasScrolled) {
-                    targetRow.scrollIntoView({
-                        behavior: 'smooth', // 平滑滚动
-                        block: 'center'    // 将高亮项滚动到视口中间
-                    });
-                    hasScrolled = true; // 将标记设置为true，防止重复滚动
+                    // 延迟一小段时间再滚动，给页面渲染留出时间，效果更好
+                    setTimeout(() => {
+                        targetRow.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'center'
+                        });
+                        hasScrolled = true;
+                    }, 100);
                 }
             }
-            statusBar.innerHTML = `<strong>${formattedTime}</strong><br>当前任务：<strong>${currentTask.name}</strong>，请保持专注！`;
+            // 判断当前是否是休息时间，状态栏显示不同内容
+            if (targetRow && targetRow.classList.contains('break-time')) {
+                 statusBar.innerHTML = `<strong>${formattedTime}</strong><br>当前是：<strong>${currentTask.name}</strong>，请好好放松！`;
+            } else {
+                 statusBar.innerHTML = `<strong>${formattedTime}</strong><br>当前任务：<strong>${currentTask.name}</strong>，请保持专注！`;
+            }
         } else {
             let nextTask = schedule.find(task => task.start > currentTime);
             if(nextTask){
-                statusBar.innerHTML = `<strong>${formattedTime}</strong><br>当前为休息时间。下一个任务是：<strong>${nextTask.name}</strong>`;
+                statusBar.innerHTML = `<strong>${formattedTime}</strong><br>学习时间结束。下一个任务是：<strong>${nextTask.name}</strong>`;
             } else {
                  statusBar.innerHTML = `<strong>${formattedTime}</strong><br>今天辛苦了！所有学习任务已完成。`;
             }
         }
     }
 
-    // 首次加载时立即执行一次，以触发高亮和滚动
     updateHighlight();
-    // 之后每秒更新时间，但不再触发滚动
     setInterval(updateHighlight, 1000);
 });
 </script>
