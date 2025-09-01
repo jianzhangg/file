@@ -5,6 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>响应式动态学习日程表</title>
 <style>
+    /* 为平滑滚动增加的样式 */
+    html {
+        scroll-behavior: smooth;
+    }
     /* --- 全局与桌面端样式 --- */
     body {
         font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
@@ -174,7 +178,7 @@
             <tr id="task-1545">
                 <td data-label="时间段"><strong>15:45 - 17:00</strong></td>
                 <td data-label="学习内容 (做什么)"><strong>复习与准备</strong><br>1. 打开 <strong>`DIDA`</strong>，复习<strong>一周前</strong>的知识点（间隔重复）。<br>2. 准备<strong>2-3个</strong>晚上想和 Tandem 语伴聊的话题，思考一些可能会用到的词汇和表达。</td>
-                <td data-label="原理解释 (为什么这么安排)"><strong>科学复习 & 有备而战</strong><br>间隔重复是对抗<strong>遗忘</strong>最<strong>科学</strong>的武器。<strong>复习旧</strong>知识能激活长期记忆。提前<strong>准备</strong>话题能让你的<strong>实战</strong>中更自信、更有话可说，极大提升交流<strong>质量</strong>。</td>
+                <td data-label="原理解释 (为什么这么安排)"><strong>科学复习 & 有备而战</strong><br>间隔重复是对抗遗忘最科学的武器。复习旧知识能激活长期记忆。提前准备话题能让你的实战中更自信、更有话可说，极大提升交流质量。</td>
             </tr>
             <tr id="task-2130">
                 <td data-label="时间段"><strong>21:30 - 22:15</strong></td>
@@ -197,7 +201,8 @@
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    // JavaScript部分无需任何改动
+    let hasScrolled = false; // 新增一个标记，确保自动滚动只执行一次
+
     const schedule = [
         { id: 'task-0730', start: 7.5, end: 8.5, name: '沉浸式听力' },
         { id: 'task-0830', start: 8.5, end: 9.0, name: '昨日复盘' },
@@ -211,6 +216,7 @@ document.addEventListener('DOMContentLoaded', function() {
         { id: 'task-2215', start: 22.25, end: 22.75, name: '复盘与捕获 (黄金30分钟)' },
         { id: 'task-2245', start: 22.75, end: 23.25, name: '睡前巩固' }
     ];
+
     function updateHighlight() {
         const now = new Date();
         const currentHour = now.getHours();
@@ -219,18 +225,33 @@ document.addEventListener('DOMContentLoaded', function() {
         const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit' };
         const formattedTime = now.toLocaleDateString('zh-CN', options);
         let currentTask = null;
+
         document.querySelectorAll('#schedule-body tr').forEach(row => {
             row.classList.remove('highlight');
         });
+
         for (const task of schedule) {
             if (currentTime >= task.start && currentTime < task.end) {
                 currentTask = task;
                 break;
             }
         }
+
         const statusBar = document.getElementById('status-bar');
         if (currentTask) {
-            document.getElementById(currentTask.id).classList.add('highlight');
+            const targetRow = document.getElementById(currentTask.id);
+            if (targetRow) {
+                targetRow.classList.add('highlight');
+
+                // --- 新增的自动滚动逻辑 ---
+                if (!hasScrolled) {
+                    targetRow.scrollIntoView({
+                        behavior: 'smooth', // 平滑滚动
+                        block: 'center'    // 将高亮项滚动到视口中间
+                    });
+                    hasScrolled = true; // 将标记设置为true，防止重复滚动
+                }
+            }
             statusBar.innerHTML = `<strong>${formattedTime}</strong><br>当前任务：<strong>${currentTask.name}</strong>，请保持专注！`;
         } else {
             let nextTask = schedule.find(task => task.start > currentTime);
@@ -241,8 +262,11 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
     }
-    setInterval(updateHighlight, 1000);
+
+    // 首次加载时立即执行一次，以触发高亮和滚动
     updateHighlight();
+    // 之后每秒更新时间，但不再触发滚动
+    setInterval(updateHighlight, 1000);
 });
 </script>
 
